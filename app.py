@@ -35,12 +35,16 @@ def index():
 
     print("url opened")
     try:
+        print("get url")
         driver.get(url)
         xpath_for_synonyms = '//*[@id="root"]/div/div/div[2]/main/section/section/div[2]/ul'
         xpath_for_suggestions = '//*[@id="root"]/div/div/div[2]/main/section/section/div[2]/div/h2[2]'
+        print("find elements by synonyms")
         items = driver.find_element_by_xpath(xpath_for_synonyms)
+        print("find elements by suggestions")
         chk = driver.find_elements_by_xpath(xpath_for_suggestions)
 
+        print("check value of chk")
         if(len(chk) > 0):
             print("Suggested Alternatives")
             output += "Suggested Alternatives\n"
@@ -49,6 +53,7 @@ def index():
             print("Synonyms")
             output += "Synonyms\n"
 
+        print("add all")
         sym = items.text
         lis = sym.split("\n")
         for i in range(len(lis)):
