@@ -63,9 +63,11 @@ def index():
             output += "\n"
         
         
+        driver.close()
         return output
 
     except Exception as e:
+        driver.close()
         return e.__doc__
 
 
