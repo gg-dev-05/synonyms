@@ -5,7 +5,13 @@ import json
 
 app = Flask(__name__)
 
-@app.route('/', methods=['POST'])
+
+@app.route('/')
+def index():
+    return "connected"
+
+    
+@app.route('/app', methods=['POST'])
 def index():
 
     req = request.get_json()
@@ -13,8 +19,11 @@ def index():
     word = req['word']
 
     chrome_options = webdriver.ChromeOptions()
-    #chrome_options.add_argument('--headless')
-    driver = webdriver.Chrome(options=chrome_options)
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),options=chrome_options)
     url = "https://www.thesaurus.com/browse/{}?s=t".format(word)
     output = ""
     try:
