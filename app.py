@@ -36,6 +36,7 @@ def index():
     print("url opened")
     try:
         print("get url")
+        print(url)
         driver.get(url)
         xpath_for_synonyms = '//*[@id="root"]/div/div/div[2]/main/section/section/div[2]/ul'
         xpath_for_suggestions = '//*[@id="root"]/div/div/div[2]/main/section/section/div[2]/div/h2[2]'
