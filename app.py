@@ -20,7 +20,7 @@ def index():
     req = request.get_json()
     word = ""
     word = req['word']
-
+    print(word)
     chrome_options = webdriver.ChromeOptions()
     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
     chrome_options.add_argument("--headless")
@@ -30,7 +30,7 @@ def index():
     driver = webdriver.Chrome(options=chrome_options)
     url = "https://www.thesaurus.com/browse/{}?s=t".format(word)
     output = ""
-    
+    print("url opened")
     try:
         driver.get(url)
         xpath_for_synonyms = '//*[@id="root"]/div/div/div[2]/main/section/section/div[2]/ul'
