@@ -32,7 +32,7 @@ def index():
     url = "https://www.thesaurus.com/browse/{}?s=t".format(word)
 
     output = ""
-    
+
     print("url opened")
     try:
         driver.get(url)
@@ -59,8 +59,8 @@ def index():
         
         return output
 
-    except NoSuchElementException:
-        return "D.N.E"
+    except Exception as e:
+        return e.__doc__
 
 
 if __name__ == '__main__':
