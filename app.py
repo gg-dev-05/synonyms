@@ -7,10 +7,10 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def index():
+def home():
     return "connected"
 
-    
+
 @app.route('/app', methods=['POST'])
 def index():
 
