@@ -28,12 +28,12 @@ def index():
 
     print(word)
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    chrome_options.add_argument("--headless")
+    #chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    #chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--no-sandbox")
-    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),options=chrome_options)
-    # driver = webdriver.Chrome(options=chrome_options)
+    #driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),options=chrome_options)
+    driver = webdriver.Chrome(options=chrome_options)
     # url = "https://www.thesaurus.com/browse/{}?s=t".format(word)
     url = 'https://www.wordsapi.com/#try'
 # ----------------------------------------------------------------------------------------------------------------------------
@@ -81,6 +81,8 @@ def index():
         print(output)
         if(len(output) == 0):
             output = "No Results"
+
+        driver.close()
         return output
         # # xpath_for_synonyms = '//*[@id="root"]/div/div/div[2]/main/section/section/div[2]/ul'
         # # xpath_for_suggestions = '//*[@id="root"]/div/div/div[2]/main/section/section/div[2]/div/h2[2]'
@@ -111,7 +113,7 @@ def index():
         # return output
 
     except Exception as e:
-        
+        driver.close()
         return e.__doc__
 
 
