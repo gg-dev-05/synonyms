@@ -44,9 +44,9 @@ def index():
         xpath_for_synonyms = '//*[@id="root"]/div/div/div[2]/main/section/section/div[2]/ul'
         xpath_for_suggestions = '//*[@id="root"]/div/div/div[2]/main/section/section/div[2]/div/h2[2]'
         print("find elements by synonyms")
-        items = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, xpath_for_synonyms)))
+        items = WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.XPATH, xpath_for_synonyms)))
         print("find elements by suggestions")
-        chk = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, xpath_for_suggestions)))
+        chk = WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.XPATH, xpath_for_suggestions)))
 
         print("check value of chk")
         if(len(chk) > 0):
