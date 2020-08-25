@@ -76,6 +76,7 @@ def index():
                 output += item.text
                 output.replace("\"","")
                 output += "\n"
+                break
             #output.strip("\"")
 
         print(output)
