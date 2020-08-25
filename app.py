@@ -60,9 +60,9 @@ def index():
         print("click ")
         WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.XPATH,xpath_button)))
         driver.find_element_by_xpath(xpath_button).click()
-        # for i in range(3):
-        #     print(i)
-        #     time.sleep(1)
+        for i in range(1):
+            print(i)
+            time.sleep(1)
 
         WebDriverWait(driver,30).until(EC.presence_of_all_elements_located((By.CLASS_NAME,'exampleLink')))
         synonyms = driver.find_elements_by_class_name('exampleLink')
