@@ -4,13 +4,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import json
 import os
 import time
 
 app = Flask(__name__)
 
+branch = ""
 
 url = 'https://www.wordsapi.com/#try'
 
@@ -19,8 +20,11 @@ chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--no-sandbox")
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),options=chrome_options)
-# driver = webdriver.Chrome(options=chrome_options)
+if branch == "dev":
+    driver = webdriver.Chrome(options=chrome_options)
+else:
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),options=chrome_options)
+
 print("driver get")
 driver.get(url)
 
@@ -28,8 +32,11 @@ def init():
     global url
     print("in init")
     global driver, chrome_options
-    # driver = webdriver.Chrome(options=chrome_options)
-    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),options=chrome_options)
+    if branch == "dev":
+        driver = webdriver.Chrome(options=chrome_options)
+    else:
+        driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),options=chrome_options)
+
     driver.get(url)
 
 print("loaded")
@@ -84,6 +91,7 @@ def index():
         synonyms = driver.find_elements_by_class_name('exampleLink')
         output = ""
         x = 0
+        count = 0
         for item in synonyms:
             if(x < 12):
                 print("ignore:",item.text)
@@ -91,15 +99,18 @@ def index():
             else:
                 output += item.text
                 output.replace("\"","")
-                output += "\n"
+                output += ", "
+                count += 1
             #output.strip("\"")
 
         print(output)
         if(len(output) == 0):
             output = "No Results"
 
-
-        return output
+        return jsonify(
+            output = output,
+            count = count
+        )
         
 
     except Exception as e:
