@@ -10,6 +10,8 @@ pylint = "*"
 selenium = "*"
 flask = "*"
 gunicorn = "*"
+psycopg2-binary = "*"
+flask-sqlalchemy = "*"
 
 [requires]
 python_version = "3.8"

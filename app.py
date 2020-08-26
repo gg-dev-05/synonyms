@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, request, jsonify
 import json
 import os
@@ -12,6 +13,30 @@ import time
 app = Flask(__name__)
 
 branch = ""
+
+
+if branch == 'dev':
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/database1'
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://wqvpeuhyvaivka:58d4c1c3965f28513d3edb7a5345857c71c61d4d27c809b8927fca9fa84ab9de@ec2-107-20-15-85.compute-1.amazonaws.com:5432/d1vms9lr8jlt2s'
+    
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+
+class Data(db.Model):
+    __tablename__ = 'tablename'
+    id = db.Column(db.Integer, primary_key=True)
+    word = db.Column(db.String(200))
+    synonym = db.Column(db.String(200))
+
+    def __init__(self, word, synonym):
+        self.word = word
+        self.synonym = synonym
+
+
+
 
 url = 'https://www.wordsapi.com/#try'
 
@@ -98,14 +123,20 @@ def index():
                 x += 1
             else:
                 output += item.text
-                output.replace("\"","")
-                output += ", "
-                count += 1
+                break
+                # output.replace("\"","")
+                # output += ", "
+                # count += 1
             #output.strip("\"")
 
         print(output)
         if(len(output) == 0):
             output = "No Results"
+
+        if db.session.query(Data).filter(Data.word == word).count() == 0:
+            send = Data(word,output)
+            db.session.add(send)
+            db.session.commit()
 
         return jsonify(
             output = output,
