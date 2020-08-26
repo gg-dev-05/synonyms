@@ -2,7 +2,7 @@
 
 This API is hosted on heroku [here](https://synony.herokuapp.com/).
 
-To use this API send a json object to [/app](https://synony.herokuapp.com/app) endpoint (can only be accessed by POST request).  
+To use this API send a json object to [/app](https://synony.herokuapp.com/app) endpoint (can only be accessed by <b>POST</b> request).  
   Ex. {
         "word" : "ENTER YOUR WORD",
       }
