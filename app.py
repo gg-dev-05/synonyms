@@ -18,7 +18,7 @@ branch = ""
 if branch == 'dev':
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/database1'
 else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://wqvpeuhyvaivka:58d4c1c3965f28513d3edb7a5345857c71c61d4d27c809b8927fca9fa84ab9de@ec2-107-20-15-85.compute-1.amazonaws.com:5432/d1vms9lr8jlt2s'
+    app.config['SQLALCHEMY_DATABASE_URI'] = ''  #HIDDEN
     
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
