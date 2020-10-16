@@ -1,4 +1,4 @@
-<h2><b> Synony </b></h2>
+# *Synony*
 
 
 This API is hosted on heroku [here](https://synony.herokuapp.com/).
