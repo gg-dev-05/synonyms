@@ -1,4 +1,5 @@
-<h2><b> An API which returns the synonym of a given word </b></h2>
+<h2><b> Synony </b></h2>
+
 
 This API is hosted on heroku [here](https://synony.herokuapp.com/).
 
